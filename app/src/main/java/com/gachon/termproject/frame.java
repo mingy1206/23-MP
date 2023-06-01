@@ -27,7 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_frame);
 
             LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
             View homeView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -56,7 +56,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
                         case R.id.Archive:
                             loadFragment(harvestingFragment);
                             return true;
-                        case R.id.Interest:
+                        case R.id.Search:
                             loadFragment(interestFragment);
                             return true;
 
