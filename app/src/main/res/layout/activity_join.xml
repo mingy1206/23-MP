@@ -18,7 +18,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editTextID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID"

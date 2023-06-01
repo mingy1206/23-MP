@@ -39,14 +39,11 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
         Nametxt = findViewById(R.id.editTextName);
-        IDtxt = findViewById(R.id.editTextEmail);
+        IDtxt = findViewById(R.id.editTextID);
         PWtxt = findViewById(R.id.editTextPassword);
         signbtn =findViewById(R.id.buttonSign);
 
-
-
-
-
+        //SIGN UP 버튼 클릭시
         signbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,23 +51,19 @@ public class JoinActivity extends AppCompatActivity {
                 ID = IDtxt.getText().toString();
                 PW = PWtxt.getText().toString();
 
-                Log.d("name", String.valueOf(name.isEmpty()));
-                Log.d("ID", String.valueOf(ID.isEmpty()));
-                Log.d("PW", String.valueOf(PW.isEmpty()));
-
+                //공백체크
                 SpecialCharacterCheck checker = new SpecialCharacterCheck();
                 if(name.isEmpty()||ID.isEmpty()||PW.isEmpty()){
                     Toast.makeText(JoinActivity.this, "Please fill out all of your information", Toast.LENGTH_SHORT).show();
                 }
-
+                //특수문자 및 숫자만 있는 경우 체크
                 else if (checker.hasSpecialCharacters(ID)||TextUtils.isDigitsOnly(ID)) {
                     Toast.makeText(JoinActivity.this, "You can't use special characters or only digits ID.", Toast.LENGTH_SHORT).show();
                 }
-
-
                 else{
                     equal =true;
 
+                    //firebase 탐색후 중복 ID 체크
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,34 +71,25 @@ public class JoinActivity extends AppCompatActivity {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 if(((String)snapshot.getKey()).equals(ID))
                                 {
-                                    Log.d("server의 user id들", (String) snapshot.getKey());
                                     equal =false;
-                                    Log.d("왜 FALSE가 아니야~~~", String.valueOf(equal));
-
                                     break;
                                 }
                             }
                             if(equal){
-                                Log.d("진짜 FALSE가 아니야???", String.valueOf(equal));
-
-                                Log.d("name", name);
-                                Log.d("ID", ID);
-                                Log.d("PW", PW);
-
                                 User user = new User(name, ID, PW);
-
                                 Gson gson = new Gson();
                                 String json = gson.toJson(user);
 
                                 databaseReference.child(user.ID).setValue(json);
                                 Toast.makeText(JoinActivity.this, "The signup went successfully.", Toast.LENGTH_SHORT).show();
+                                finish();
 
                             }
                             else{
                                 Toast.makeText(JoinActivity.this, "A duplicate identity exists.", Toast.LENGTH_SHORT).show();
                             }
                         }
-
+                        //탐색 실패 예외처리
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                                 Toast.makeText(JoinActivity.this, "Unable to retrieve data from the server.", Toast.LENGTH_SHORT).show();
@@ -118,6 +102,7 @@ public class JoinActivity extends AppCompatActivity {
         });
 
     }
+    //특수문자 및 한글 처리
     public class SpecialCharacterCheck {
         private static final String PATTERN = "^[a-zA-Z0-9]*$";
 

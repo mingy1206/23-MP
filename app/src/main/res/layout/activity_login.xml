@@ -15,7 +15,7 @@
     <!--android:src="@drawable/login_logo"-->
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/loginID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID"
@@ -25,7 +25,7 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/logingPW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="PW"
