@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "960911194005",
+    "firebase_url": "https://tempory-server-default-rtdb.firebaseio.com",
+    "project_id": "tempory-server",
+    "storage_bucket": "tempory-server.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960911194005:android:afe2ed8dd70da750be689c",
+        "android_client_info": {
+          "package_name": "com.gachon.serverexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960911194005-60f0ba7uofhtl80ae7tj68cgqlmb62nv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPeR7ZbAzTPzWvpgnOZDZCesPxj66bT_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960911194005-60f0ba7uofhtl80ae7tj68cgqlmb62nv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960911194005:android:2394eb773b9b5c5abe689c",
+        "android_client_info": {
+          "package_name": "com.gachon.termproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960911194005-60f0ba7uofhtl80ae7tj68cgqlmb62nv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPeR7ZbAzTPzWvpgnOZDZCesPxj66bT_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960911194005-60f0ba7uofhtl80ae7tj68cgqlmb62nv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

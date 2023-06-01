@@ -1,25 +1,26 @@
 package com.gachon.termproject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class user {
+public class User {
     String name;
     String ID;
     String PW;
 
-    ArrayList<music_Info> music;
+    ArrayList<Music_Info> music;
 
     //Constructor
-    public user(){
+    public User(){
         this.name = null;
         this.ID = null;
         this.PW = null;
         music = null;
     }
-    public user(String name, String ID, String PW){
+    public User(String name, String ID, String PW){
         this.name =name;
         this.ID = ID;
         this.PW = PW;
+        music = null;
+
     }
 }

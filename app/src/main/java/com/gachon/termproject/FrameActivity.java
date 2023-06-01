@@ -2,6 +2,7 @@ package com.gachon.termproject;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +25,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
         private Fragment archiveFragment;
         private Fragment searchFragment;
 
+        protected String ID;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_frame);
+            Log.d("frame 전환", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
             View homeView = inflater.inflate(R.layout.fragment_home, container, false);
