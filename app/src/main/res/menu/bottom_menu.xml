@@ -20,7 +20,7 @@
             android:id="@+id/Archive"
             android:enabled="true"
             android:title="Archive"
-            android:icon="@drawable/archiving"
+            android:icon="@drawable/archive"
             app:showAsAction="always"
             />
 

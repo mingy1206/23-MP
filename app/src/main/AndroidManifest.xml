@@ -14,16 +14,15 @@
         android:theme="@style/Theme.TermProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
-        <activity
-            android:name=".frame"
-            android:exported="true"
-            android:configChanges="orientation|screenSize">>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".FrameActivity"
+                  android:exported="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
     </application>
 
 </manifest>
