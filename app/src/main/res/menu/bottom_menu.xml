@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/Interest"
+            android:enabled="true"
+            android:title="Interest"
+            android:icon="@drawable/interesting"
+            app:showAsAction="always"
+            />
+         <item
+             android:id="@+id/Home"
+            android:enabled="true"
+            android:title="Home"
+             android:icon="@drawable/home"
+            app:showAsAction="always"
+         />
+        <item
+            android:id="@+id/Archive"
+            android:enabled="true"
+            android:title="Archive"
+            android:icon="@drawable/archiving"
+            app:showAsAction="always"
+            />
+
+
+
+
+    </menu>
