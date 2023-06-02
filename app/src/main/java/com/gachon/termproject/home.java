@@ -16,7 +16,7 @@ public class home extends Fragment {
 
     public home() {
         // Required empty public constructor
-    }
+        }
 
     public static home newInstance() {
         return new home();
