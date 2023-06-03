@@ -39,11 +39,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
             container = findViewById(R.id.container);
 
             homeFragment = new home();
-            bottomNavigationView.setSelectedItemId(R.id.Home);
-
+            searchFragment = new search();
+            archiveFragment = new archive();
 
             // Set the initial fragment
+            loadFragment(archiveFragment);
+            loadFragment(searchFragment);
             loadFragment(homeFragment);
+            bottomNavigationView.setSelectedItemId(R.id.Home);
+
         }
         @Override
         protected void onStart() {
