@@ -1,5 +1,8 @@
 package com.gachon.termproject;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +27,7 @@ public class JsonParserHelper {
     public static String[] getSearchResultFromJson(String originalJson) {
 
         // 리턴 순서는 ID, 이름, 작곡가명, 썸네일 URL 순서로 제공됩니다.
-        String[] returnResult = new String[3];
+        String[] returnResult = new String[4];
 
         try{
             JSONObject jsonObject = new JSONObject(originalJson);
@@ -33,7 +36,7 @@ public class JsonParserHelper {
             JSONArray jsonArray = jsonObject2.getJSONArray("item");
 
             JSONObject item = jsonArray.getJSONObject(0);
-            returnResult[0] = item.getString("@id");
+            returnResult[0] = item.getString("id");
             returnResult[1] = item.getString("title");
             returnResult[2] = item.getJSONObject("artist").getString("name");
             returnResult[3] = item.getString("thumnail");

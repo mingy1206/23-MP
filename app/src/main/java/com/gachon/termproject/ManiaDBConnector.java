@@ -43,7 +43,7 @@ public class ManiaDBConnector {
             }
             else {
                 Log.e("test1","Connection Error : " + responseCode);
-                return "Connection Error : " + responseCode;
+                return null;
             }
 
             // XML 결과값 출력
