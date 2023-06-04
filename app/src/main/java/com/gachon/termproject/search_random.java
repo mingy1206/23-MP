@@ -25,7 +25,7 @@ import java.net.URL;
  * Use the {@link search#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class search extends Fragment {
+public class search_random extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,9 +36,7 @@ public class search extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public search() {
-
-
+    public search_random() {
     }
 
     // TODO: Rename and change types and number of parameters

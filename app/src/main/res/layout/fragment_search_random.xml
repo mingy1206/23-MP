@@ -10,47 +10,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/change"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/go_to_random"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/change"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="random search"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-        <Button
-            android:id="@+id/go_to_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Title Search"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/go_to_random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="random search"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/go_to_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title Search"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="horizontal"
             android:layout_below="@id/change">
 
-            <EditText
-                android:id="@+id/searchKeyword"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:hint="Search Album..."
-                android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/searchButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search" />
         </LinearLayout>
 
 
