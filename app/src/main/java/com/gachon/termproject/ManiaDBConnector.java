@@ -115,6 +115,8 @@ public class ManiaDBConnector {
 
             finalResult = jsonResponse;
 
+        }catch (NullPointerException e){
+            e.printStackTrace();
         } catch (Exception | Error e){
             e.printStackTrace();
         }

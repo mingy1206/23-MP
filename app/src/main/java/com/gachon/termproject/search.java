@@ -1,5 +1,4 @@
 package com.gachon.termproject;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -17,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -28,7 +30,11 @@ import java.net.URL;
 public class search extends Fragment {
     private Button change_btn1;
     private Fragment change_fragment;
-
+    private Button save_btn1;
+    private Bitmap saveImage;
+    private String title;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference("Users");
     public search() {
 
 
@@ -46,7 +52,7 @@ public class search extends Fragment {
     // 여기부터 내가 직접 적용한 내용분임. 변수값이랑 각종 함수 복사 붙여넣기 하면 될 것.
     // 레이아웃 변수
     EditText searchKeyword;
-    Button searchButton, searchImageId;
+    Button searchButton;
     ImageView resImage;
     TextView resTitle, resAuthor, resID;
 
@@ -58,7 +64,7 @@ public class search extends Fragment {
                              Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
-
+        save_btn1 =(Button) rootView.findViewById(R.id.saveButton1);
         searchKeyword = (EditText) rootView.findViewById(R.id.searchKeyword);
         searchButton = (Button) rootView.findViewById(R.id.searchButton);
         resImage = (ImageView) rootView.findViewById(R.id.searchResultImage);
@@ -67,6 +73,7 @@ public class search extends Fragment {
         resID = (TextView) rootView.findViewById(R.id.searchResultId);
         change_btn1=(Button) rootView.findViewById(R.id.go_to_random1);
         change_fragment=new search_random();
+
         // 검색 키워드 : searchKeyword, 버튼 누를 시
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +86,7 @@ public class search extends Fragment {
                     Handler handler = new Handler(Looper.getMainLooper());
 
                     handler.post(() -> {
+                        title=searchArrayReturn[1];
                         resTitle.setText(searchArrayReturn[1]);
                         resAuthor.setText(searchArrayReturn[2]);
                         resID.setText(searchArrayReturn[0]);
@@ -97,6 +105,17 @@ public class search extends Fragment {
             }
         });
 
+        save_btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = ((FrameActivity)getActivity()).valueOfID();
+                String temp = BitMapToString.change(saveImage);
+                FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
+                arrayUpdater.addValue(temp);
+
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return rootView;
@@ -111,6 +130,7 @@ public class search extends Fragment {
                 String img_url = strings[0];
                 URL url = new URL(img_url);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                saveImage = bmp;
             } catch(IOException e) {
                 e.printStackTrace();
             }
@@ -126,6 +146,9 @@ public class search extends Fragment {
         protected void onPostExecute(Bitmap bitmap) {
 
             resImage.setImageBitmap(bitmap);
+        }
+        protected void saveImage(){
+
         }
     }
 }

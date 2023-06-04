@@ -25,7 +25,6 @@ public class JoinActivity extends AppCompatActivity {
     private Button signbtn ;
 
     private String name, ID, PW;
-    private boolean equal;
 
     // 파이어베이스 데이터베이스 연동
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -61,17 +60,18 @@ public class JoinActivity extends AppCompatActivity {
                     Toast.makeText(JoinActivity.this, "You can't use special characters or only digits ID.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    equal =true;
 
                     //firebase 탐색후 중복 ID 체크
-                    databaseReference.addValueEventListener(new ValueEventListener() {
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        boolean equal;
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                             equal = true;
                             // 데이터 조회 성공 시 호출되는 콜백 메서드
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 if(((String)snapshot.getKey()).equals(ID))
                                 {
-                                    equal =false;
+                                    equal = false;
                                     break;
                                 }
                             }
@@ -81,14 +81,16 @@ public class JoinActivity extends AppCompatActivity {
                                 String json = gson.toJson(user);
 
                                 databaseReference.child(user.ID).setValue(json);
+                                equal = true;
                                 Toast.makeText(JoinActivity.this, "The signup went successfully.", Toast.LENGTH_SHORT).show();
                                 finish();
 
                             }
-                            else{
+                            if(!equal){
                                 Toast.makeText(JoinActivity.this, "A duplicate identity exists.", Toast.LENGTH_SHORT).show();
                             }
                         }
+
                         //탐색 실패 예외처리
                         @Override
                         public void onCancelled(DatabaseError databaseError) {

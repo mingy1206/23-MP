@@ -36,6 +36,9 @@ public class search_random extends Fragment  implements SensorEventListener{
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private long lastShakeTime;
+    private Button save_btn2;
+    private Bitmap saveImage;
+
 
     public search_random() {
     }
@@ -68,23 +71,17 @@ public class search_random extends Fragment  implements SensorEventListener{
         lastShakeTime=0;
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search_random, container, false);
-
+        save_btn2 =(Button) rootView.findViewById(R.id.saveButton2);
         searchKeyword = (EditText) rootView.findViewById(R.id.searchKeyword);
         searchButton = (Button) rootView.findViewById(R.id.searchButton);
-        searchImageId = (Button) rootView.findViewById(R.id.saveButton);
+        searchImageId = (Button) rootView.findViewById(R.id.saveButton2);
         resImage = (ImageView) rootView.findViewById(R.id.searchResultImage);
         resTitle = (TextView) rootView.findViewById(R.id.searchResultTitle);
         resAuthor = (TextView) rootView.findViewById(R.id.searchResultAuthor);
         resID = (TextView) rootView.findViewById(R.id.searchResultId);
         change_btn2=(Button) rootView.findViewById(R.id.go_to_title2);
         change_fragment=new search();
-        // 검색 키워드는 없고, 랜덤으로 사진 한 장 뽑아오는 알고리즘
-        searchImageId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
         change_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +91,17 @@ public class search_random extends Fragment  implements SensorEventListener{
                 ((FrameActivity)getActivity()).loadFragment(change_fragment);
             }
         });
+        save_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = ((FrameActivity)getActivity()).valueOfID();
+                String temp = BitMapToString.change(saveImage);
+                FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
+                arrayUpdater.addValue(temp);
+
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return rootView;
@@ -118,7 +126,6 @@ public class search_random extends Fragment  implements SensorEventListener{
             float y = event.values[1];
             float z = event.values[2];
             double acceleration = sqrt(abs(x) +abs(y) +abs(z));
-            Log.d("accelerometeraccelerometeraccelerometeraccelerometeraccelerometer", String.valueOf(acceleration));
 
             if(acceleration>(5.8)){
                 new Thread(() -> {
@@ -132,7 +139,6 @@ public class search_random extends Fragment  implements SensorEventListener{
                     } while (searchJsonReturn == null && loopCount < 5);
 
                     String thumbnail = JsonParserHelper.getThumbnailFromJson(searchJsonReturn);
-
                     String finalRandId = Integer.toString(randId);
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(() -> {
@@ -164,6 +170,7 @@ public class search_random extends Fragment  implements SensorEventListener{
                 String img_url = strings[0];
                 URL url = new URL(img_url);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                saveImage =bmp;
             } catch(IOException e) {
                 e.printStackTrace();
             }

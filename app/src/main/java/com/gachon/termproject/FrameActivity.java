@@ -1,6 +1,7 @@
 package com.gachon.termproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
         private Fragment archiveFragment;
         private Fragment searchFragment;
 
-        protected String ID;
+        public String ID;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -45,14 +46,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
             archiveFragment = new archive();
 
             // Set the initial fragment
-            loadFragment(archiveFragment);
-            loadFragment(searchFragment);
+
             loadFragment(homeFragment);
             bottomNavigationView.setSelectedItemId(R.id.Home);
 
 
 
-
+            Intent intent = getIntent();
+            ID= intent.getStringExtra("UID");
 
         }
         @Override
@@ -70,7 +71,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
                             loadFragment(archiveFragment);
                             return true;
                         case R.id.Search:
-                            replaceFragment(search.newInstance());
+                            loadFragment(searchFragment);
                             return true;
 
                     }
@@ -85,10 +86,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
                     .commit();
         }
 
-        public void replaceFragment(Fragment fragment) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
+
+        public String valueOfID(){
+            return ID;
         }
     }
 

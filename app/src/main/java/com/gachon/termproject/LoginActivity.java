@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
                                 // FrameActivity로 이동
                                 Intent intent=new Intent(getApplicationContext(),FrameActivity.class);
+                                intent.putExtra("UID", ID);
                                 startActivity(intent);
                                 finish();
                             }else{
