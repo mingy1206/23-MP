@@ -1,7 +1,15 @@
 package com.gachon.termproject;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -9,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,41 +29,24 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link search#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class search_random extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class search_random extends Fragment  implements SensorEventListener{
+    private Button change_btn2;
+    private Fragment change_fragment;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private long lastShakeTime;
 
     public search_random() {
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static search newInstance(String param1, String param2) {
-        search fragment = new search();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static search_random newInstance() {
+        return new search_random();
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     // 여기부터 내가 직접 적용한 내용분임. 변수값이랑 각종 함수 복사 붙여넣기 하면 될 것.
@@ -70,42 +62,65 @@ public class search_random extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //shake 기능을 위한 선언
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        lastShakeTime=0;
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search_random, container, false);
 
         searchKeyword = (EditText) rootView.findViewById(R.id.searchKeyword);
         searchButton = (Button) rootView.findViewById(R.id.searchButton);
-        searchImageId = (Button) rootView.findViewById(R.id.searchImageId);
+        searchImageId = (Button) rootView.findViewById(R.id.saveButton);
         resImage = (ImageView) rootView.findViewById(R.id.searchResultImage);
         resTitle = (TextView) rootView.findViewById(R.id.searchResultTitle);
         resAuthor = (TextView) rootView.findViewById(R.id.searchResultAuthor);
         resID = (TextView) rootView.findViewById(R.id.searchResultId);
-
-        // 검색 키워드 : searchKeyword, 버튼 누를 시
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(() -> {
-                    String keyword = searchKeyword.getText().toString();
-                    String searchJsonReturn = ManiaDBConnector.getJsonOfSearch(keyword, "album", 2);
-                    String[] searchArrayReturn = JsonParserHelper.getSearchResultFromJson(searchJsonReturn);
-
-                    Handler handler = new Handler(Looper.getMainLooper());
-
-                    handler.post(() -> {
-                        resTitle.setText(searchArrayReturn[1]);
-                        resAuthor.setText(searchArrayReturn[2]);
-                        resID.setText(searchArrayReturn[0]);
-                    });
-                    new DownloadFilesTask().execute(searchArrayReturn[3]);
-                }).start();
-            }
-        });
-
+        change_btn2=(Button) rootView.findViewById(R.id.go_to_title2);
+        change_fragment=new search();
         // 검색 키워드는 없고, 랜덤으로 사진 한 장 뽑아오는 알고리즘
         searchImageId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+            }
+        });
+
+        change_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // getActivity()로 MainActivity의 replaceFragment를 불러옵니다.
+                ((FrameActivity)getActivity()).loadFragment(change_fragment);
+            }
+        });
+
+        // Inflate the layout for this fragment
+        return rootView;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        sensorManager.registerListener( this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime - lastShakeTime >= 300){
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            double acceleration = sqrt(abs(x) +abs(y) +abs(z));
+            Log.d("accelerometeraccelerometeraccelerometeraccelerometeraccelerometer", String.valueOf(acceleration));
+
+            if(acceleration>(5.8)){
                 new Thread(() -> {
                     int loopCount = 0;
                     int randId;
@@ -128,10 +143,16 @@ public class search_random extends Fragment {
                     mappedAlbumId[1] = thumbnail;
                 }).start();
             }
-        });
+            lastShakeTime = currentTime;
 
-        // Inflate the layout for this fragment
-        return rootView;
+        }
+
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     // 이미지 불러오는 함수, 하단 PostExecute 부분의 resImage가 타겟 imageView임.

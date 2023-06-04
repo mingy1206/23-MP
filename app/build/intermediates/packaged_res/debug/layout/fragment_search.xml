@@ -6,55 +6,96 @@
     tools:context=".search">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/searchKeyword"
+        <LinearLayout
+            android:id="@+id/change"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Search Album..." />
-
-        <Button
-            android:id="@+id/searchButton"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search Now" />
-
-        <Button
-            android:id="@+id/searchImageId"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/go_to_random1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random Search"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/go_to_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title Search"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search by Random image ID" />
+            android:orientation="horizontal"
+            android:layout_below="@id/change">
+
+            <EditText
+                android:id="@+id/searchKeyword"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:hint="Search Album..."
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search" />
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/searchResultImage"
             android:layout_width="200dp"
-            android:layout_height="200dp" />
-        
+            android:layout_height="200dp"
+            android:layout_below="@id/search_bar"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="save"
+            android:layout_below="@id/searchResultImage"
+            android:layout_centerHorizontal="true"
+            />
         <TextView
             android:id="@+id/searchResultTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Title" />
+            android:text="Title"
+            android:layout_below="@id/saveButton"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/searchResultAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Author" />
+            android:text="Author"
+            android:layout_below="@id/searchResultTitle"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/searchResultId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="ID" />
+            android:text="ID"
+            android:layout_below="@id/searchResultAuthor"
+            android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

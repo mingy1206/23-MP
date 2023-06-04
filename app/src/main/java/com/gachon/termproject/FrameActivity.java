@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -48,6 +50,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
             loadFragment(homeFragment);
             bottomNavigationView.setSelectedItemId(R.id.Home);
 
+
+
+
+
         }
         @Override
         protected void onStart() {
@@ -64,7 +70,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
                             loadFragment(archiveFragment);
                             return true;
                         case R.id.Search:
-                            loadFragment(searchFragment);
+                            replaceFragment(search.newInstance());
                             return true;
 
                     }
@@ -73,10 +79,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
             });
 
         }
-            private void loadFragment(Fragment fragment) {
+            public void loadFragment(Fragment fragment) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, fragment)
                     .commit();
+        }
+
+        public void replaceFragment(Fragment fragment) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
         }
     }
 

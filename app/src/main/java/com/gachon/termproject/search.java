@@ -26,37 +26,21 @@ import java.net.URL;
  * create an instance of this fragment.
  */
 public class search extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button change_btn1;
+    private Fragment change_fragment;
 
     public search() {
 
 
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static search newInstance(String param1, String param2) {
-        search fragment = new search();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static search newInstance() {
+        return new search();
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     // 여기부터 내가 직접 적용한 내용분임. 변수값이랑 각종 함수 복사 붙여넣기 하면 될 것.
@@ -77,12 +61,12 @@ public class search extends Fragment {
 
         searchKeyword = (EditText) rootView.findViewById(R.id.searchKeyword);
         searchButton = (Button) rootView.findViewById(R.id.searchButton);
-        searchImageId = (Button) rootView.findViewById(R.id.searchImageId);
         resImage = (ImageView) rootView.findViewById(R.id.searchResultImage);
         resTitle = (TextView) rootView.findViewById(R.id.searchResultTitle);
         resAuthor = (TextView) rootView.findViewById(R.id.searchResultAuthor);
         resID = (TextView) rootView.findViewById(R.id.searchResultId);
-
+        change_btn1=(Button) rootView.findViewById(R.id.go_to_random1);
+        change_fragment=new search_random();
         // 검색 키워드 : searchKeyword, 버튼 누를 시
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,33 +88,15 @@ public class search extends Fragment {
             }
         });
 
-        // 검색 키워드는 없고, 랜덤으로 사진 한 장 뽑아오는 알고리즘
-        searchImageId.setOnClickListener(new View.OnClickListener() {
+        change_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(() -> {
-                    int loopCount = 0;
-                    int randId;
-                    String searchJsonReturn = null;
-                    do {
-                        loopCount += 1;
-                        randId = (int) Math.round(Math.random() * 600000) + 400000;
-                        searchJsonReturn = ManiaDBConnector.getJsonOfAlbumId(Integer.toString(randId));
-                    } while (searchJsonReturn == null && loopCount < 5);
 
-                    String thumbnail = JsonParserHelper.getThumbnailFromJson(searchJsonReturn);
-
-                    String finalRandId = Integer.toString(randId);
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(() -> {
-                        resID.setText(finalRandId);
-                    });
-                    new DownloadFilesTask().execute(thumbnail);
-                    mappedAlbumId[0] = finalRandId;
-                    mappedAlbumId[1] = thumbnail;
-                }).start();
+                // getActivity()로 MainActivity의 replaceFragment를 불러옵니다.
+                ((FrameActivity)getActivity()).loadFragment(change_fragment);
             }
         });
+
 
         // Inflate the layout for this fragment
         return rootView;
