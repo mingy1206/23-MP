@@ -5,13 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,8 +49,6 @@ public class GalleryActivity extends AppCompatActivity {
                     }
                 }
                 Log.d("불러온 값", String.valueOf(imageUrls));
-
-                // 데이터를 모두 추가한 후 어댑터를 설정해야 올바른 결과를 얻을 수 있습니다.
                 imageAdapter = new ImageAdapter(imageUrls, GalleryActivity.this);
                 recyclerView.setAdapter(imageAdapter);
 
@@ -62,7 +56,6 @@ public class GalleryActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // 처리할 작업을 추가하세요
             }
         });
     }

@@ -1,6 +1,9 @@
 package com.gachon.termproject;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,9 +21,10 @@ import android.widget.ImageView;
  * create an instance of this fragment.
  */
 public class archive extends Fragment {
+    private int imageViewCount = 0;
 
     private ImageView picture;
-    private Button albumBtn;
+    private Button albumBtn, pictureBtn;
     public archive() {
         // Required empty public constructor
     }
@@ -40,7 +45,7 @@ public class archive extends Fragment {
 
         albumBtn =(Button)rootView.findViewById(R.id.album_btn);
         picture =(ImageView)rootView.findViewById(R.id.pictucre);
-
+        pictureBtn=(Button) rootView.findViewById(R.id.picture_btn);
 
         albumBtn.setOnClickListener(new View.OnClickListener(){
 
@@ -50,6 +55,18 @@ public class archive extends Fragment {
                 startActivity(intent);
             }
         });
+        pictureBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivity(intent);
+            }
+        });
         return rootView;
+
     }
+
 }
+
