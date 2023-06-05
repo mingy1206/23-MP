@@ -1,5 +1,6 @@
 package com.gachon.termproject;
-
+//Grilde를 이용한 이미지 띄우기
+//출처 : https://stackoverflow.com/questions/56680173/glide-not-able-to-load-some-of-images-failed-with-exception
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;

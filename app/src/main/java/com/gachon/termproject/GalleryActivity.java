@@ -1,5 +1,6 @@
 package com.gachon.termproject;
-
+//recycle view에 띄우기
+//출처 :https://hanyeop.tistory.com/201
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;

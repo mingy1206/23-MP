@@ -1,5 +1,6 @@
 package com.gachon.termproject;
-
+//갤러리에서 이미지 가져오기
+//출처 : https://wikidocs.net/99371
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
@@ -15,15 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link archive#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class archive extends Fragment {
     private int imageViewCount = 0;
 
     private ImageView picture;
+
     private Button albumBtn, pictureBtn;
     public archive() {
         // Required empty public constructor
@@ -61,12 +58,24 @@ public class archive extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                startActivity(intent);
-            }
+                startActivityForResult(intent, 1);            }
         });
+
         return rootView;
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    picture.setImageURI(uri);
+                }
+                break;
+        }
+    }
 }
 
