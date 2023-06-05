@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-
     //firebase를 위한 id 선언
     id 'com.google.gms.google-services'
 }
@@ -44,7 +43,6 @@ dependencies {
 
 
     implementation 'com.google.android.material:material:1.4.0'
-    implementation files('libs/spotify-app-remote-release-0.7.2.aar')
     implementation'com.google.code.gson:gson:2.8.9'
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'androidx.appcompat:appcompat:1.6.1'
