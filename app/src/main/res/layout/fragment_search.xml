@@ -17,18 +17,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <Button
-                android:id="@+id/go_to_random1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Random Search"
-                android:layout_weight="1"
-                android:layout_margin="5dp"/>
+
             <Button
                 android:id="@+id/go_to_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title Search"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/go_to_random1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random Search"
                 android:layout_weight="1"
                 android:layout_margin="5dp"/>
         </LinearLayout>

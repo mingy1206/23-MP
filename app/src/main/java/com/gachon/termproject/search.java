@@ -31,7 +31,7 @@ public class search extends Fragment {
     private Button change_btn1;
     private Fragment change_fragment;
     private Button save_btn1;
-    private Bitmap saveImage;
+    private String saveImage;
     private String title;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference("Users");
@@ -109,9 +109,8 @@ public class search extends Fragment {
             @Override
             public void onClick(View v) {
                 String id = ((FrameActivity)getActivity()).valueOfID();
-                String temp = BitMapToString.change(saveImage);
                 FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
-                arrayUpdater.addValue(temp);
+                arrayUpdater.addValue(saveImage);
 
             }
         });
@@ -128,9 +127,9 @@ public class search extends Fragment {
             Bitmap bmp = null;
             try{
                 String img_url = strings[0];
+                saveImage = img_url;
                 URL url = new URL(img_url);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                saveImage = bmp;
             } catch(IOException e) {
                 e.printStackTrace();
             }

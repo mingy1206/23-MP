@@ -37,7 +37,7 @@ public class search_random extends Fragment  implements SensorEventListener{
     private Sensor accelerometer;
     private long lastShakeTime;
     private Button save_btn2;
-    private Bitmap saveImage;
+    private String saveImage;
 
 
     public search_random() {
@@ -95,9 +95,8 @@ public class search_random extends Fragment  implements SensorEventListener{
             @Override
             public void onClick(View v) {
                 String id = ((FrameActivity)getActivity()).valueOfID();
-                String temp = BitMapToString.change(saveImage);
                 FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
-                arrayUpdater.addValue(temp);
+                arrayUpdater.addValue(saveImage);
 
             }
         });
@@ -168,9 +167,9 @@ public class search_random extends Fragment  implements SensorEventListener{
             Bitmap bmp = null;
             try{
                 String img_url = strings[0];
+                saveImage =img_url;
                 URL url = new URL(img_url);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                saveImage =bmp;
             } catch(IOException e) {
                 e.printStackTrace();
             }

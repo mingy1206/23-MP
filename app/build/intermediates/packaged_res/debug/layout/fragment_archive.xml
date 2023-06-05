@@ -3,12 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".archive">
+    tools:context=".search">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="this is archive fragment" />
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/album_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="chose album"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+            <Button
+                android:id="@+id/picture_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="chose picture"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/pictucre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginBottom="105dp"
+            android:src="@drawable/armstrong"
+            />
+        <Button
+            android:id="@+id/locate_btn"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:text="locate"
+            android:textSize="8sp"
+            android:layout_alignTop="@+id/pictucre"
+            android:layout_margin="5dp"
+            />
+    </RelativeLayout>
 </FrameLayout>

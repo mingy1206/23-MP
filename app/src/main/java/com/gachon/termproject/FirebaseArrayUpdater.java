@@ -1,6 +1,7 @@
 package com.gachon.termproject;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -18,7 +19,7 @@ public class FirebaseArrayUpdater {
     private FirebaseDatabase database;
     private DatabaseReference reference ;
     private String ID;
-    private String json;
+    private Object json;
     public FirebaseArrayUpdater(String id) {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Music").child(id);
@@ -27,22 +28,24 @@ public class FirebaseArrayUpdater {
 
     public void addValue(String newValue) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            boolean equal;
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if(((String)snapshot.getKey()).equals(ID))
+                    if(((String)snapshot.getValue()).equals(newValue))
                     {
-                        json = snapshot.getValue().toString();
-                        Log.d("user 정보", json);
+                        equal =true;
+                        break;
                     }
+
                 }
 
-                Gson gson = new Gson();
-                ArrayList<String> musicList = new ArrayList<>();
-                musicList.add(newValue);
-
-
-                reference.push().setValue(gson.toJson(musicList));
+                if(!equal){
+                    Gson gson = new Gson();
+                    reference.push().setValue(gson.toJson(newValue));
+                    Log.d("넣은 값",newValue);
+                }
 
             }
 
