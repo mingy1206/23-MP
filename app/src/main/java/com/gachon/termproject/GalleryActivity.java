@@ -1,6 +1,11 @@
 package com.gachon.termproject;
 //recycle view에 띄우기
 //출처 :https://hanyeop.tistory.com/201
+import static android.app.PendingIntent.getActivity;
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import static java.security.AccessController.getContext;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,11 +29,13 @@ public class GalleryActivity extends AppCompatActivity {
     private ImageAdapter imageAdapter;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference("Music");
-
+    private String imageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -43,7 +50,8 @@ public class GalleryActivity extends AppCompatActivity {
                     Map<String, String> data = (Map<String, String>) snapshot.getValue();
                     if (data != null) {
                         for (Map.Entry<String, String> entry : data.entrySet()) {
-                            String imageUrl = String.valueOf(entry.getValue());
+                            imageUrl = String.valueOf(entry.getValue());
+                            imageUrl = imageUrl.substring(1,imageUrl.length()-1);
                             imageUrls.add(imageUrl);
 
                         }
@@ -60,4 +68,6 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
