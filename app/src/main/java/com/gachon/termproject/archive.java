@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -60,7 +61,6 @@ public class archive extends Fragment {
     private RelativeLayout imageContainer;
     private Button albumBtn, pictureBtn,capturebtn;
     private int size;
-    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     Vibrator mVibe;
 
     public archive() {
@@ -88,13 +88,19 @@ public class archive extends Fragment {
         mVibe = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         capturebtn=(Button)rootView.findViewById(R.id.capturebtn);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Toast.makeText(getActivity(), "안드로이드 버전 정책에 의하여 " +
+                    "\n설정 -> 어플리케이션에서 사진 권한을 허용해주세요.", Toast.LENGTH_SHORT).show();
+        }
 
         capturebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestStoragePermission();
+                saveImage();
+                // requestStoragePermission();
             }
         });
+
         albumBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -120,6 +126,10 @@ public class archive extends Fragment {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if (album == null) {
+                    return true;
+                }
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         break;
@@ -175,27 +185,6 @@ public class archive extends Fragment {
         imageContainer.addView(album);
         album.bringToFront();
         imageViewCount++;
-    }
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_EXTERNAL_STORAGE);
-        } else {
-            saveImage();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                saveImage();
-            } else {
-                Toast.makeText(getActivity(), "저장 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private void saveImage() {

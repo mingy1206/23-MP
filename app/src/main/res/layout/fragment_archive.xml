@@ -11,36 +11,59 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <GridLayout
             android:id="@+id/change"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:rowCount="1"
+            android:columnCount="2"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/album_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="chose album" />
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/rounded_corner"
+                android:drawableLeft="@drawable/login_btn"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textSize="15sp"
+                android:text="Choose \nAlbum" />
 
             <Button
                 android:id="@+id/picture_btn"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/rounded_corner"
+                android:drawableLeft="@drawable/login_btn"
+                android:textStyle="bold"
+                android:layout_gravity="right"
+                android:textSize="15sp"
+                android:text="Choose \nPicture" />
+
+            <TextView
+                android:layout_columnSpan="2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="chose picture" />
-        </LinearLayout>
+                android:textSize="20sp"
+                android:text="Choose your background picture and \nSaved album and make your own Archive!"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true" />
+
+        </GridLayout>
 
         <RelativeLayout
             android:id="@+id/imageContainer"
-            android:layout_width="270dp"
+            android:layout_width="wrap_content"
             android:layout_height="480dp"
             android:layout_centerInParent="true"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="135dp"
             android:layout_marginRight="80dp"
             android:layout_marginBottom="105dp">
             <ImageView
@@ -52,16 +75,15 @@
 
         <Button
             android:id="@+id/capturebtn"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="50dp"
-            android:text="capture"
-            android:textAlignment="center" />
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="save"
+            android:background="@drawable/rounded_corner"
+            android:textSize="20sp"
+            android:layout_marginTop="-100dp"
+            android:layout_below="@id/imageContainer"
+            android:layout_centerHorizontal="true"
+            />
 
     </RelativeLayout>
 </FrameLayout>

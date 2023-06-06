@@ -1,6 +1,7 @@
 package com.gachon.termproject;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,12 +25,17 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
+    private PermissionSupport permission;
 
     private EditText txtID, txtPW;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permissionCheck();
+        }
 
         Button loginbtn = findViewById(R.id.buttonLogin);
         Button joinbtn = findViewById(R.id.buttonJoin);
@@ -101,10 +108,22 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
 
-
-
-
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void permissionCheck() {
+        permission = new PermissionSupport(this, this);
+        if (!permission.checkPermission()) {
+            permission.requestPermission();
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (!permission.permissionResult(requestCode, permissions, grantResults)) {
+            permission.requestPermission();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
 
