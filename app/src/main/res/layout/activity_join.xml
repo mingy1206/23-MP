@@ -3,17 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:background="@color/black"
+    >
+    <TextView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="Make Album archiving \nCoves"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        />
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
+        android:textColorHint="#fff"
         android:padding="10dp"
+        android:textAppearance="@style/HintTextStyle"
+        android:background="@drawable/white_box"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:inputType="text"
         />
 
@@ -21,18 +35,26 @@
         android:id="@+id/editTextID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/white_box"
         android:hint="ID"
+        android:textColorHint="#fff"
         android:padding="10dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textAppearance="@style/HintTextStyle"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/white_box"
+        android:textAppearance="@style/HintTextStyle"
         android:hint="PW"
+        android:textColorHint="#fff"
         android:padding="10dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:inputType="textPassword" />
@@ -42,8 +64,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SIGN UP"
-        android:layout_marginTop="20dp"
+        android:textSize="19dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableLeft="@drawable/finish_sign_up"
         android:layout_marginRight="20dp" />
 
 </LinearLayout>

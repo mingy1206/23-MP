@@ -3,52 +3,70 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black"
+    >
+
+    <!--android:src="@drawable/login_logo"-->
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_width="397dp"
+        android:layout_height="324dp"
         android:layout_marginBottom="50dp"
-        />
-    <!--android:src="@drawable/login_logo"-->
+        android:background="@drawable/bg3"
+         />
 
     <EditText
         android:id="@+id/loginID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID"
+        android:textColorHint="#fff"
+        android:background="@drawable/white_box"
         android:padding="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textAppearance="@style/HintTextStyle"
         android:inputType="textEmailAddress" />
 
     <EditText
+        android:layout_marginTop="20dp"
         android:id="@+id/logingPW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="PW"
+        android:textColorHint="#fff"
+        android:background="@drawable/white_box"
         android:padding="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textAppearance="@style/HintTextStyle"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOGIN"
+        android:text="Login"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:background="@drawable/rounded_corner"
+        android:drawableLeft="@drawable/login_btn2"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
+<!--    android:drawableLeft="@drawable/login_btn"-->
     <Button
         android:id="@+id/buttonJoin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="JOIN"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corner"
+        android:drawableLeft="@drawable/login_btn"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        android:textSize="19dp"
+        android:text="Create ID" />
 
 </LinearLayout>

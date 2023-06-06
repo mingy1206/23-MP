@@ -3,62 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".search">
-
+    tools:context=".search"
+    >
+<!--    android:background="@color/black"-->
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             >
 
             <Button
                 android:id="@+id/go_to_title1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="19dp"
                 android:text="Title Search"
+                android:gravity="left"
+                android:background="@drawable/rounded_corner"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/login_btn2"
                 android:layout_margin="5dp"/>
             <Button
                 android:id="@+id/go_to_random1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:background="@drawable/rounded_corner"
+                android:gravity="left"
                 android:text="Random Search"
+                android:drawableLeft="@drawable/random_search"
                 android:layout_weight="1"
                 android:layout_margin="5dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/search_bar"
+            android:layout_marginTop="11dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_below="@id/change">
 
             <EditText
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:id="@+id/searchKeyword"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_box"
                 android:hint="Search Album..."
-                android:layout_weight="1" />
+                android:gravity="left"
+                android:textAppearance="@style/HintTextStyle"
+                android:textColorHint="#fff" />
 
             <Button
                 android:id="@+id/searchButton"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner"
                 android:text="Search" />
         </LinearLayout>
 
 
         <ImageView
             android:id="@+id/searchResultImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_below="@id/search_bar"
             android:layout_centerHorizontal="true" />
 
@@ -67,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="save"
+            android:background="@drawable/rounded_corner"
             android:layout_below="@id/searchResultImage"
             android:layout_centerHorizontal="true"
             />
