@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="Shake your phone \n results give you Random Album!"
+            android:text="Shake your phone results Random Album!"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:layout_below="@id/searchResultImage"

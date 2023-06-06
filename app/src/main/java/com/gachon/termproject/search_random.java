@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 
 public class search_random extends Fragment  implements SensorEventListener{
@@ -66,7 +67,7 @@ public class search_random extends Fragment  implements SensorEventListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //shake 기능을 위한 선언
-        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         lastShakeTime=0;
 
@@ -112,7 +113,13 @@ public class search_random extends Fragment  implements SensorEventListener{
     @Override
     public void onResume() {
         super.onResume();
-        sensorManager.registerListener( this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+        try {
+            sensorManager.registerListener( this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "범인 발견!", Toast.LENGTH_SHORT).show();
+            tooltipText.setText(e.toString());
+        }
+
     }
     @Override
     public void onPause() {
