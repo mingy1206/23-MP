@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -111,6 +112,7 @@ public class search extends Fragment {
                 String id = ((FrameActivity)getActivity()).valueOfID();
                 FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
                 arrayUpdater.addValue(saveImage);
+                Toast.makeText(getContext(), "save successful", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -146,8 +148,6 @@ public class search extends Fragment {
 
             resImage.setImageBitmap(bitmap);
         }
-        protected void saveImage(){
 
-        }
     }
 }

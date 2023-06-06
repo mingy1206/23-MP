@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +31,8 @@ public class GalleryActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference("Music");
     private String imageUrl;
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +45,27 @@ public class GalleryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         List<String> imageUrls = new ArrayList<>();
+        id = getIntent().getStringExtra("id");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Map<String, String> data = (Map<String, String>) snapshot.getValue();
-                    if (data != null) {
-                        for (Map.Entry<String, String> entry : data.entrySet()) {
-                            imageUrl = String.valueOf(entry.getValue());
-                            imageUrl = imageUrl.substring(1,imageUrl.length()-1);
-                            imageUrls.add(imageUrl);
+                if (dataSnapshot.exists()) {
 
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if(snapshot.getKey().equals(id)){
+                            Map<String, String> data = (Map<String, String>) snapshot.getValue();
+                            for (Map.Entry<String, String> entry : data.entrySet()) {
+                                imageUrl = String.valueOf(entry.getValue());
+                                imageUrl = imageUrl.substring(1,imageUrl.length()-1);
+                                imageUrls.add(imageUrl);
+
+                            }
                         }
+
                     }
+                }else{
+                    Toast.makeText(GalleryActivity.this, "not exists", Toast.LENGTH_SHORT).show();
                 }
                 Log.d("불러온 값", String.valueOf(imageUrls));
                 imageAdapter = new ImageAdapter(imageUrls, GalleryActivity.this);
