@@ -100,6 +100,8 @@ public class archive extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), GalleryActivity.class);
+                String id = ((FrameActivity)getActivity()).valueOfID();
+                intent.putExtra("id", id);
                 startActivityForResult(intent, 2);
             }
         });
