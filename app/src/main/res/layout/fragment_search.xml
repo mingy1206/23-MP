@@ -86,6 +86,27 @@
             android:src="@drawable/noimageicon"
             android:layout_centerHorizontal="true" />
 
+        <TextView
+            android:id="@+id/searchResultTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_below="@id/searchResultImage"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/searchResultAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Search album to find favorite song!"
+            android:textColor="@color/white"
+            android:layout_below="@id/searchResultTitle"
+            android:layout_centerHorizontal="true" />
+
         <Button
             android:id="@+id/saveButton1"
             android:layout_width="wrap_content"
@@ -93,35 +114,9 @@
             android:text="save"
             android:background="@drawable/rounded_corner"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/searchResultImage"
+            android:layout_below="@id/searchResultAuthor"
             android:layout_centerHorizontal="true"
             />
-        <TextView
-            android:id="@+id/searchResultTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Title"
-            android:layout_below="@id/saveButton1"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/searchResultAuthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Author"
-            android:layout_below="@id/searchResultTitle"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/searchResultId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="ID"
-            android:layout_below="@id/searchResultAuthor"
-            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

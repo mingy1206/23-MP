@@ -33,9 +33,8 @@ public class JsonParserHelper {
             JSONObject jsonObject = new JSONObject(originalJson);
             String jsonChannel = jsonObject.getString("channel");
             JSONObject jsonObject2 = new JSONObject(jsonChannel);
-            JSONArray jsonArray = jsonObject2.getJSONArray("item");
+            JSONObject item = jsonObject2.getJSONObject("item");
 
-            JSONObject item = jsonArray.getJSONObject(0);
             returnResult[0] = item.getString("id");
             returnResult[1] = item.getString("title");
             returnResult[2] = item.getJSONObject("artist").getString("name");

@@ -39,6 +39,11 @@ public class search_random extends Fragment  implements SensorEventListener{
     private long lastShakeTime;
     private Button save_btn2;
     private String saveImage;
+    // 여기부터 내가 직접 적용한 내용분임. 변수값이랑 각종 함수 복사 붙여넣기 하면 될 것.
+    // 레이아웃 변수
+    EditText searchKeyword;
+    TextView tooltipText;
+    ImageView resImage;
 
 
     public search_random() {
@@ -53,12 +58,6 @@ public class search_random extends Fragment  implements SensorEventListener{
 
     }
 
-    // 여기부터 내가 직접 적용한 내용분임. 변수값이랑 각종 함수 복사 붙여넣기 하면 될 것.
-    // 레이아웃 변수
-    EditText searchKeyword;
-    Button searchButton, searchImageId;
-    ImageView resImage;
-    TextView resTitle, resAuthor, resID;
 
     // DB에 넣을 수도 있는 값
     String[] mappedAlbumId = new String[2]; // 랜덤 샘플링 직후의 ID와 썸네일 링크 저장
@@ -74,13 +73,9 @@ public class search_random extends Fragment  implements SensorEventListener{
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search_random, container, false);
         save_btn2 =(Button) rootView.findViewById(R.id.saveButton2);
         searchKeyword = (EditText) rootView.findViewById(R.id.searchKeyword);
-        searchButton = (Button) rootView.findViewById(R.id.searchButton);
-        searchImageId = (Button) rootView.findViewById(R.id.saveButton2);
         resImage = (ImageView) rootView.findViewById(R.id.searchResultImage);
-        resTitle = (TextView) rootView.findViewById(R.id.searchResultTitle);
-        resAuthor = (TextView) rootView.findViewById(R.id.searchResultAuthor);
-        resID = (TextView) rootView.findViewById(R.id.searchResultId);
         change_btn2=(Button) rootView.findViewById(R.id.go_to_title2);
+        tooltipText = (TextView) rootView.findViewById(R.id.randomTooltip);
         change_fragment=new search();
 
 
@@ -92,9 +87,16 @@ public class search_random extends Fragment  implements SensorEventListener{
                 ((FrameActivity)getActivity()).loadFragment(change_fragment);
             }
         });
+
+        // 세이브 버튼 눌렀을 때
         save_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (saveImage == null) {
+                    Toast.makeText(getContext(), "Please roll the image first.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String id = ((FrameActivity)getActivity()).valueOfID();
                 FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
                 arrayUpdater.addValue(saveImage);
@@ -129,6 +131,7 @@ public class search_random extends Fragment  implements SensorEventListener{
             double acceleration = sqrt(abs(x) +abs(y) +abs(z));
 
             if(acceleration>(5.8)){
+                tooltipText.setText("Random Sampling... Please wait...");
                 new Thread(() -> {
                     int loopCount = 0;
                     int randId;
@@ -143,7 +146,7 @@ public class search_random extends Fragment  implements SensorEventListener{
                     String finalRandId = Integer.toString(randId);
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(() -> {
-                        resID.setText(finalRandId);
+                        tooltipText.setText("Here are random sampled album!");
                     });
                     new DownloadFilesTask().execute(thumbnail);
                     mappedAlbumId[0] = finalRandId;
@@ -169,7 +172,7 @@ public class search_random extends Fragment  implements SensorEventListener{
             Bitmap bmp = null;
             try{
                 String img_url = strings[0];
-                saveImage =img_url;
+                saveImage = img_url;
                 URL url = new URL(img_url);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             } catch(IOException e) {

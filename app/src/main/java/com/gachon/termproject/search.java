@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class search extends Fragment {
     EditText searchKeyword;
     Button searchButton;
     ImageView resImage;
-    TextView resTitle, resAuthor, resID;
+    TextView resTitle, resAuthor;
 
     // DB에 넣을 수도 있는 값
     String[] mappedAlbumId = new String[2]; // 랜덤 샘플링 직후의 ID와 썸네일 링크 저장
@@ -71,7 +72,6 @@ public class search extends Fragment {
         resImage = (ImageView) rootView.findViewById(R.id.searchResultImage);
         resTitle = (TextView) rootView.findViewById(R.id.searchResultTitle);
         resAuthor = (TextView) rootView.findViewById(R.id.searchResultAuthor);
-        resID = (TextView) rootView.findViewById(R.id.searchResultId);
         change_btn1=(Button) rootView.findViewById(R.id.go_to_random1);
         change_fragment=new search_random();
 
@@ -79,10 +79,16 @@ public class search extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resTitle.setText("");
+                resAuthor.setText("Searching... Please wait...");
                 new Thread(() -> {
                     String keyword = searchKeyword.getText().toString();
-                    String searchJsonReturn = ManiaDBConnector.getJsonOfSearch(keyword, "album", 2);
+                    String searchJsonReturn = ManiaDBConnector.getJsonOfSearch(keyword, "album", 1);
                     String[] searchArrayReturn = JsonParserHelper.getSearchResultFromJson(searchJsonReturn);
+
+                    if (searchArrayReturn[0] == null) {
+                        searchArrayReturn[1] = "Song Not Found";
+                    }
 
                     Handler handler = new Handler(Looper.getMainLooper());
 
@@ -90,7 +96,6 @@ public class search extends Fragment {
                         title=searchArrayReturn[1];
                         resTitle.setText(searchArrayReturn[1]);
                         resAuthor.setText(searchArrayReturn[2]);
-                        resID.setText(searchArrayReturn[0]);
                     });
                     new DownloadFilesTask().execute(searchArrayReturn[3]);
                 }).start();
@@ -106,9 +111,15 @@ public class search extends Fragment {
             }
         });
 
+        // 세이브 버튼 눌렀을 때
         save_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (resTitle.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Please search the song first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String id = ((FrameActivity)getActivity()).valueOfID();
                 FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
                 arrayUpdater.addValue(saveImage);
