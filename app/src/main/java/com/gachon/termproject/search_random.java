@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.URL;
@@ -97,6 +98,7 @@ public class search_random extends Fragment  implements SensorEventListener{
                 String id = ((FrameActivity)getActivity()).valueOfID();
                 FirebaseArrayUpdater arrayUpdater = new FirebaseArrayUpdater(id);
                 arrayUpdater.addValue(saveImage);
+                Toast.makeText(getContext(), "save successful", Toast.LENGTH_SHORT).show();
 
             }
         });
