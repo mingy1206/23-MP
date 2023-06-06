@@ -81,7 +81,9 @@
             android:id="@+id/searchResultImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/search_bar"
+            android:src="@drawable/noimageicon"
             android:layout_centerHorizontal="true" />
 
         <Button
@@ -90,6 +92,7 @@
             android:layout_height="wrap_content"
             android:text="save"
             android:background="@drawable/rounded_corner"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/searchResultImage"
             android:layout_centerHorizontal="true"
             />

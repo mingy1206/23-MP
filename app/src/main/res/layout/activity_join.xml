@@ -6,15 +6,22 @@
     android:orientation="vertical"
     android:background="@color/black"
     >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/bg3"
+        />
+
     <TextView
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="-250dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="Make Album archiving \nCoves"
+        android:text="Make Album archiving Coves"
         android:textColor="@color/white"
-        android:textSize="35dp"
+        android:textAlignment="center"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_marginLeft="20dp"
         />
     <EditText
         android:id="@+id/editTextName"
