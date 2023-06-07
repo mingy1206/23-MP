@@ -47,10 +47,10 @@
 
             <TextView
                 android:layout_columnSpan="2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Choose your background picture and \nSaved album and make your own Archive!"
+                android:textSize="15sp"
+                android:text="Choose your background picture and \nSaved album to make your own Archive!"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:layout_centerHorizontal="true" />
