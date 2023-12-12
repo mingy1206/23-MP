@@ -39,3 +39,6 @@ DataBase : maniadb, Firebase
 ## 6. Result Example
 
 <img src="exampleImages/Result_example.png" width="200" height="400">
+
+
+You can create a new image by combining the photos and albums you want.
